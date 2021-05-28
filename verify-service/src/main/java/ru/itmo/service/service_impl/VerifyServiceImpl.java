@@ -17,13 +17,13 @@ public class VerifyServiceImpl implements VerifyService {
 
 
     private final VerificateResultRepository verificateResultRepository;
-    private final PythonService pythonService;
+    private final PythonServiceImpl pythonServiceImpl;
 
     @Override
     public VerificationResponseDTO verifyUserMessage(VerificationRequestDTO requestDTO) {
 
 
-        Double result = pythonService.startModel(requestDTO);
+        Double result = pythonServiceImpl.startModel(requestDTO);
         Boolean resultTrueFalse = Math.round(result) == 1;
 
         verificateResultRepository.saveAndFlush(new VerificateResult(requestDTO.getUserId(),requestDTO.getMessage(),result,resultTrueFalse));
